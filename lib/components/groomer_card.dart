@@ -1,16 +1,16 @@
-import 'package:doctor_appointment_app/main.dart';
-import 'package:doctor_appointment_app/screens/doctor_details.dart';
-import 'package:doctor_appointment_app/utils/config.dart';
+import 'package:woorack_app/main.dart';
+import 'package:woorack_app/screens/groomer_details.dart';
+import 'package:woorack_app/utils/config.dart';
 import 'package:flutter/material.dart';
 
-class DoctorCard extends StatelessWidget {
-  const DoctorCard({
+class GroomerCard extends StatelessWidget {
+  const GroomerCard({
     Key? key,
-    required this.doctor,
+    required this.groomer,
     required this.isFav,
   }) : super(key: key);
 
-  final Map<String, dynamic> doctor;
+  final Map<String, dynamic> groomer;
   final bool isFav;
 
   @override
@@ -28,7 +28,7 @@ class DoctorCard extends StatelessWidget {
               SizedBox(
                 width: Config.widthSize * 0.33,
                 child: Image.network(
-                  "http://127.0.0.1:8000${doctor['doctor_profile']}",
+                  "http://127.0.0.1:8000${groomer['groomer_profile']}",
                   fit: BoxFit.fill,
                 ),
               ),
@@ -40,14 +40,14 @@ class DoctorCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Dr ${doctor['doctor_name']}",
+                        "${groomer['groomer_name']}",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "${doctor['category']}",
+                        "${groomer['category']}",
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,
@@ -89,8 +89,8 @@ class DoctorCard extends StatelessWidget {
         onTap: () {
           //pass the details to detail page
           MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
-              builder: (_) => DoctorDetails(
-                    doctor: doctor,
+              builder: (_) => groomerDetails(
+                    groomer: groomer,
                     isFav: isFav,
                   )));
         },

@@ -1,4 +1,4 @@
-import "package:doctor_appointment_app/components/doctor_card.dart";
+import 'package:woorack_app/components/groomer_card.dart';
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 
@@ -20,7 +20,7 @@ class _FavPageState extends State<FavPage> {
         child: Column(
           children: [
             const Text(
-              'My Favorite Doctors',
+              'My Favorite Groomers',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
@@ -34,10 +34,10 @@ class _FavPageState extends State<FavPage> {
               child: Consumer<AuthModel>(
                 builder: (context, auth, child) {
                   return ListView.builder(
-                    itemCount: auth.getFavDoc.length,
+                    itemCount: auth.getFavGroomer.length,
                     itemBuilder: (context, index) {
-                      return DoctorCard(
-                        doctor: auth.getFavDoc[index],
+                      return GroomerCard(
+                        groomer: auth.getFavGroomer[index],
                         //show fav icon
                         isFav: true,
                       );

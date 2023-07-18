@@ -1,5 +1,5 @@
-import "package:doctor_appointment_app/main.dart";
-import "package:doctor_appointment_app/utils/config.dart";
+import "package:woorack_app/main.dart";
+import "package:woorack_app/utils/config.dart";
 import "package:flutter/material.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
@@ -36,7 +36,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 10,
                 ),
                 Text(
-                  'Amanda Tan',
+                  'Sheila',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 20,

@@ -1,9 +1,9 @@
-import 'package:doctor_appointment_app/main_layout.dart';
-import 'package:doctor_appointment_app/models/auth_model.dart';
-import 'package:doctor_appointment_app/screens/auth_page.dart';
-import 'package:doctor_appointment_app/screens/booking_page.dart';
-import 'package:doctor_appointment_app/screens/success_booked.dart';
-import 'package:doctor_appointment_app/utils/config.dart';
+import 'package:woorack_app/main_layout.dart';
+import 'package:woorack_app/models/auth_model.dart';
+import 'package:woorack_app/screens/auth_page.dart';
+import 'package:woorack_app/screens/booking_page.dart';
+import 'package:woorack_app/screens/success_booked.dart';
+import 'package:woorack_app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       create: (context) => AuthModel(),
       child: MaterialApp(
         navigatorKey: navigatorKey,
-        title: 'Flutter Doctor App',
+        title: 'Flutter Woorack',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           //pre-define input decoration

@@ -1,6 +1,6 @@
-import 'package:doctor_appointment_app/main.dart';
-import 'package:doctor_appointment_app/providers/dio_provider.dart';
-import 'package:doctor_appointment_app/utils/config.dart';
+import 'package:woorack_app/main.dart';
+import 'package:woorack_app/providers/dio_provider.dart';
+import 'package:woorack_app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -36,7 +36,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                        "http://127.0.0.1:8000${widget.doctor['doctor_profile']}"), //insert doctor profile
+                        "http://127.0.0.1:8000${widget.doctor['groomer_profile']}"), //insert doctor profile
                   ),
                   const SizedBox(
                     width: 10,

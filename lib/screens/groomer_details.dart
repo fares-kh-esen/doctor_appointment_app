@@ -1,30 +1,30 @@
-import 'package:doctor_appointment_app/components/button.dart';
-import 'package:doctor_appointment_app/models/auth_model.dart';
-import 'package:doctor_appointment_app/providers/dio_provider.dart';
-import 'package:doctor_appointment_app/utils/config.dart';
+import 'package:woorack_app/components/button.dart';
+import 'package:woorack_app/models/auth_model.dart';
+import 'package:woorack_app/providers/dio_provider.dart';
+import 'package:woorack_app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components//custom_appbar.dart';
 
-class DoctorDetails extends StatefulWidget {
-  const DoctorDetails({Key? key, required this.doctor, required this.isFav})
+class GroomerDetails extends StatefulWidget {
+  const GroomerDetails({Key? key, required this.groomer, required this.isFav})
       : super(key: key);
-  final Map<String, dynamic> doctor;
+  final Map<String, dynamic> groomer;
   final bool isFav;
 
   @override
-  State<DoctorDetails> createState() => _DoctorDetailsState();
+  State<GroomerDetails> createState() => _GroomerDetailsState();
 }
 
-class _DoctorDetailsState extends State<DoctorDetails> {
-  Map<String, dynamic> doctor = {};
+class _GroomerDetailsState extends State<GroomerDetails> {
+  Map<String, dynamic> groomer = {};
   bool isFav = false;
 
   @override
   void initState() {
-    doctor = widget.doctor;
+    groomer = widget.groomer;
     isFav = widget.isFav;
     super.initState();
   }
@@ -33,23 +33,23 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        appTitle: 'Doctor Details',
+        appTitle: 'Groomer Details',
         icon: const FaIcon(Icons.arrow_back_ios),
         actions: [
           //Favarite Button
           IconButton(
-            //press this button to add/remove favorite doctor
+            //press this button to add/remove favorite groomer
             onPressed: () async {
               //get latest favorite list from auth model
               final list =
                   Provider.of<AuthModel>(context, listen: false).getFav;
 
-              //if doc id is already exist, mean remove the doc id
-              if (list.contains(doctor['doc_id'])) {
-                list.removeWhere((id) => id == doctor['doc_id']);
+              //if groomer id is already exist, mean remove the groomer id
+              if (list.contains(groomer['groomer_id'])) {
+                list.removeWhere((id) => id == groomer['groomer_id']);
               } else {
-                //else, add new doctor to favorite list
-                list.add(doctor['doc_id']);
+                //else, add new groomer to favorite list
+                list.add(groomer['groomer_id']);
               }
 
               //update the list into auth model and notify all widgets
@@ -59,17 +59,18 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   await SharedPreferences.getInstance();
               final token = prefs.getString('token') ?? '';
 
-              if (token.isNotEmpty && token != '') {
-                //update the favorite list into database
-                final response = await DioProvider().storeFavDoc(token, list);
-                //if insert successfully, then change the favorite status
+              //if (token.isNotEmpty && token != '') {
+              //update the favorite list into database
+              //final response =
+//await DioProvider().storeFavGroomer(token, list);
+              //if insert successfully, then change the favorite status
 
-                if (response == 200) {
-                  setState(() {
-                    isFav = !isFav;
-                  });
-                }
-              }
+              //if (response == 200) {
+              //setState(() {
+              //isFav = !isFav;
+              //});
+              //  }
+              //}
             },
             icon: FaIcon(
               isFav ? Icons.favorite_rounded : Icons.favorite_outline,
@@ -81,11 +82,11 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       body: SafeArea(
         child: Column(
           children: <Widget>[
-            AboutDoctor(
-              doctor: doctor,
+            AboutGroomer(
+              groomer: groomer,
             ),
             DetailBody(
-              doctor: doctor,
+              groomer: groomer,
             ),
             const Spacer(),
             Padding(
@@ -95,7 +96,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                 title: 'Book Appointment',
                 onPressed: () {
                   Navigator.of(context).pushNamed('booking_page',
-                      arguments: {"doctor_id": doctor['doc_id']});
+                      arguments: {"groomer_id": groomer['groomer_id']});
                 },
                 disable: false,
               ),
@@ -107,10 +108,10 @@ class _DoctorDetailsState extends State<DoctorDetails> {
   }
 }
 
-class AboutDoctor extends StatelessWidget {
-  const AboutDoctor({Key? key, required this.doctor}) : super(key: key);
+class AboutGroomer extends StatelessWidget {
+  const AboutGroomer({Key? key, required this.groomer}) : super(key: key);
 
-  final Map<dynamic, dynamic> doctor;
+  final Map<dynamic, dynamic> groomer;
 
   @override
   Widget build(BuildContext context) {
@@ -122,13 +123,13 @@ class AboutDoctor extends StatelessWidget {
           CircleAvatar(
             radius: 65.0,
             backgroundImage: NetworkImage(
-              "http://127.0.0.1:8000${doctor['doctor_profile']}",
+              "http://127.0.0.1:8000${groomer['groomer_profile']}",
             ),
             backgroundColor: Colors.white,
           ),
           Config.spaceMedium,
           Text(
-            "Dr ${doctor['doctor_name']}",
+            "${groomer['groomer_name']}",
             style: const TextStyle(
               color: Colors.black,
               fontSize: 24.0,
@@ -139,7 +140,7 @@ class AboutDoctor extends StatelessWidget {
           SizedBox(
             width: Config.widthSize * 0.75,
             child: const Text(
-              'MBBS (International Medical University, Malaysia), MRCP (Royal College of Physicians, United Kingdom)',
+              'Purrfection Catz Grooming Academy, Malaysia',
               style: TextStyle(
                 color: Colors.grey,
                 fontSize: 15,
@@ -152,7 +153,7 @@ class AboutDoctor extends StatelessWidget {
           SizedBox(
             width: Config.widthSize * 0.75,
             child: const Text(
-              'Sarawak General Hospital',
+              'Groomer Malaysia Institute',
               style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
@@ -169,8 +170,8 @@ class AboutDoctor extends StatelessWidget {
 }
 
 class DetailBody extends StatelessWidget {
-  const DetailBody({Key? key, required this.doctor}) : super(key: key);
-  final Map<dynamic, dynamic> doctor;
+  const DetailBody({Key? key, required this.groomer}) : super(key: key);
+  final Map<dynamic, dynamic> groomer;
 
   @override
   Widget build(BuildContext context) {
@@ -181,18 +182,18 @@ class DetailBody extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Config.spaceSmall,
-          DoctorInfo(
-            patients: doctor['patients'],
-            exp: doctor['experience'],
+          GroomerInfo(
+            patients: groomer['patients'],
+            exp: groomer['experience'],
           ),
           Config.spaceMedium,
           const Text(
-            'About Doctor',
+            'About Groomer',
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
           ),
           Config.spaceSmall,
           Text(
-            'Dr. ${doctor['doctor_name']} is an experience ${doctor['category']} Specialist at Sarawak, graduated since 2008, and completed his/her training at Sungai Buloh General Hospital.',
+            'Ms. ${groomer['groomer_name']} is an experience ${groomer['category']} groomer at Sarawak, graduated since 2008, and completed his/her training at Groomer Malaysia Academy.',
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               height: 1.5,
@@ -206,8 +207,8 @@ class DetailBody extends StatelessWidget {
   }
 }
 
-class DoctorInfo extends StatelessWidget {
-  const DoctorInfo({Key? key, required this.patients, required this.exp})
+class GroomerInfo extends StatelessWidget {
+  const GroomerInfo({Key? key, required this.patients, required this.exp})
       : super(key: key);
 
   final int patients;

@@ -1,9 +1,9 @@
-import 'package:doctor_appointment_app/components/button.dart';
-import 'package:doctor_appointment_app/components/custom_appbar.dart';
-import 'package:doctor_appointment_app/main.dart';
-import 'package:doctor_appointment_app/models/booking_datetime_converted.dart';
-import 'package:doctor_appointment_app/providers/dio_provider.dart';
-import 'package:doctor_appointment_app/utils/config.dart';
+import 'package:woorack_app/components/button.dart';
+import 'package:woorack_app/components/custom_appbar.dart';
+import 'package:woorack_app/main.dart';
+import 'package:woorack_app/models/booking_datetime_converted.dart';
+import 'package:woorack_app/providers/dio_provider.dart';
+import 'package:woorack_app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +41,7 @@ class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
-    final doctor = ModalRoute.of(context)!.settings.arguments as Map;
+    final groomer = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
       appBar: CustomAppBar(
         appTitle: 'Appointment',
@@ -138,7 +138,7 @@ class _BookingPageState extends State<BookingPage> {
                   final getTime = DateConverted.getTime(_currentIndex!);
 
                   final booking = await DioProvider().bookAppointment(
-                      getDate, getDay, getTime, doctor['doctor_id'], token!);
+                      getDate, getDay, getTime, groomer['groomer_id'], token!);
 
                   //if booking return status code 200, then redirect to success booking page
 

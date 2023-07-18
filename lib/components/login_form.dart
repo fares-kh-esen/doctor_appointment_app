@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:doctor_appointment_app/components/button.dart';
-import 'package:doctor_appointment_app/main.dart';
-import 'package:doctor_appointment_app/models/auth_model.dart';
-import 'package:doctor_appointment_app/providers/dio_provider.dart';
+import 'package:woorack_app/components/button.dart';
+import 'package:woorack_app/main.dart';
+import 'package:woorack_app/models/auth_model.dart';
+import 'package:woorack_app/providers/dio_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -77,8 +77,8 @@ class _LoginFormState extends State<LoginForm> {
                 title: 'Sign In',
                 onPressed: () async {
                   //login here
-                // try {
-                    final token = await DioProvider()
+                  // try {
+                  final token = await DioProvider()
                       .getToken(_emailController.text, _passController.text);
 
                   if (token) {
@@ -98,15 +98,6 @@ class _LoginFormState extends State<LoginForm> {
                           //json decode
                           Map<String, dynamic> appointment = {};
                           final user = json.decode(response);
-                          
-                          //check if any appointment today
-                          // for (var doctorData in user['doctor']) {
-                          //   //if there is appointment return for today
-
-                          //   if (doctorData['appointments'] != null) {
-                          //     appointment = doctorData;
-                          //   }
-                          // }
 
                           auth.loginSuccess(user, appointment);
                           MyApp.navigatorKey.currentState!.pushNamed('main');
@@ -114,9 +105,9 @@ class _LoginFormState extends State<LoginForm> {
                       }
                     }
                   }
-                // } catch (e) {
-                //   debugPrint(e.toString());
-                // }
+                  // } catch (e) {
+                  //   debugPrint(e.toString());
+                  // }
                 },
                 disable: false,
               );

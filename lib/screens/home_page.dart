@@ -1,7 +1,7 @@
-import 'package:doctor_appointment_app/components/appointment_card.dart';
-import 'package:doctor_appointment_app/components/doctor_card.dart';
-import 'package:doctor_appointment_app/models/auth_model.dart';
-import 'package:doctor_appointment_app/utils/config.dart';
+import 'package:woorack_app/components/appointment_card.dart';
+import 'package:woorack_app/components/groomer_card.dart';
+import 'package:woorack_app/models/auth_model.dart';
+import 'package:woorack_app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -15,32 +15,32 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Map<String, dynamic> user = {};
-  Map<String, dynamic> doctor = {};
+  Map<String, dynamic> groomer = {};
   List<dynamic> favList = [];
   List<Map<String, dynamic>> medCat = [
     {
-      "icon": FontAwesomeIcons.userDoctor,
-      "category": "General",
+      "icon": FontAwesomeIcons.cat,
+      "category": "Long Hair",
     },
     {
-      "icon": FontAwesomeIcons.heartPulse,
-      "category": "Cardiology",
+      "icon": FontAwesomeIcons.cat,
+      "category": "Short Hair",
     },
     {
-      "icon": FontAwesomeIcons.lungs,
-      "category": "Respirations",
+      "icon": FontAwesomeIcons.scissors,
+      "category": "Nail Cutting",
     },
     {
-      "icon": FontAwesomeIcons.hand,
-      "category": "Dermatology",
+      "icon": FontAwesomeIcons.bath,
+      "category": "Ear Cleaning",
     },
     {
-      "icon": FontAwesomeIcons.personPregnant,
-      "category": "Gynecology",
+      "icon": FontAwesomeIcons.shieldCat,
+      "category": "Flea Trimming",
     },
     {
-      "icon": FontAwesomeIcons.teeth,
-      "category": "Dental",
+      "icon": FontAwesomeIcons.paw,
+      "category": "Paw Trimming",
     },
   ];
 
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Config().init(context);
     user = Provider.of<AuthModel>(context, listen: false).getUser;
-    doctor = Provider.of<AuthModel>(context, listen: false).getAppointment;
+    groomer = Provider.of<AuthModel>(context, listen: false).getAppointment;
     favList = Provider.of<AuthModel>(context, listen: false).getFav;
 
     return Scaffold(
@@ -142,9 +142,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Config.spaceSmall,
-                      doctor.isNotEmpty
+                      groomer.isNotEmpty
                           ? AppointmentCard(
-                              doctor: doctor,
+                              groomer: groomer,
                               color: Config.primaryColor,
                             )
                           : Container(
@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                       Config.spaceSmall,
                       const Text(
-                        'Top Doctors',
+                        'Top Groomer',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -176,12 +176,13 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Config.spaceSmall,
                       Column(
-                        children: List.generate(user['doctor'].length, (index) {
-                          return DoctorCard(
-                            doctor: user['doctor'][index],
-                            //if lates fav list contains particular doctor id, then show fav icon
-                            isFav: favList
-                                    .contains(user['doctor'][index]['doc_id'])
+                        children:
+                            List.generate(user['groomer'].length, (index) {
+                          return GroomerCard(
+                            groomer: user['groomer'][index],
+                            //if lates fav list contains particular groomer id, then show fav icon
+                            isFav: favList.contains(
+                                    user['groomer'][index]['groomer_id'])
                                 ? true
                                 : false,
                           );

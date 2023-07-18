@@ -1,7 +1,7 @@
-import 'package:doctor_appointment_app/components/button.dart';
-import 'package:doctor_appointment_app/main.dart';
-import 'package:doctor_appointment_app/models/auth_model.dart';
-import 'package:doctor_appointment_app/providers/dio_provider.dart';
+import 'package:woorack_app/components/button.dart';
+import 'package:woorack_app/main.dart';
+import 'package:woorack_app/models/auth_model.dart';
+import 'package:woorack_app/providers/dio_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -115,5 +115,3 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 }
-
-//now, let's get all doctor details and display on Mobile screen
