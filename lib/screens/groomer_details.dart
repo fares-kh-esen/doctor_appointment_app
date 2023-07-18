@@ -1,6 +1,5 @@
 import 'package:woorack_app/components/button.dart';
 import 'package:woorack_app/models/auth_model.dart';
-import 'package:woorack_app/providers/dio_provider.dart';
 import 'package:woorack_app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -89,7 +89,7 @@ class GroomerCard extends StatelessWidget {
         onTap: () {
           //pass the details to detail page
           MyApp.navigatorKey.currentState!.push(MaterialPageRoute(
-              builder: (_) => groomerDetails(
+              builder: (_) => GroomerDetails(
                     groomer: groomer,
                     isFav: isFav,
                   )));
