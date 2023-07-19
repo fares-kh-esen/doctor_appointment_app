@@ -73,28 +73,29 @@ class _GroomerDetailsState extends State<GroomerDetails> {
         ],
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            AboutGroomer(
-              groomer: groomer,
-            ),
-            DetailBody(
-              groomer: groomer,
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Button(
-                width: double.infinity,
-                title: 'Book Appointment',
-                onPressed: () {
-                  Navigator.of(context).pushNamed('booking_page',
-                      arguments: {"groomer_id": groomer['groomer_id']});
-                },
-                disable: false,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              AboutGroomer(
+                groomer: groomer,
               ),
-            ),
-          ],
+              DetailBody(
+                groomer: groomer,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Button(
+                  width: double.infinity,
+                  title: 'Book Appointment',
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('booking_page',
+                        arguments: {"groomer_id": groomer['groomer_id']});
+                  },
+                  disable: false,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

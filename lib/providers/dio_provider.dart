@@ -5,8 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DioProvider {
   //get token
- static String appUrl = "192.168.1.27:8000";
-  // String appUrl = "10.0.2.2:8000";
+  //static String appUrl = "192.168.1.27:8000";
+  static String appUrl = "10.0.2.2:8000";
   Future<dynamic> getToken(String email, String password) async {
     // try {
     print('getToken');
