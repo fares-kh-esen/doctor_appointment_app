@@ -9,6 +9,6 @@ class AppText {
         'You can easily sign up, and connect to the Groomers nearby you',
     'signUp_text': 'Don\'t have an account?',
     'social-login': 'Or continue with social account',
-    //'forgot-password': 'Forgot Your Password?',
+    'forgot-password': 'Forgot Your Password?',
   };
 }
