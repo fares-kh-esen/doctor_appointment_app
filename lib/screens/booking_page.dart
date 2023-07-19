@@ -132,6 +132,7 @@ class _BookingPageState extends State<BookingPage> {
                 width: double.infinity,
                 title: 'Make Appointment',
                 onPressed: () async {
+                  print('Make Appointment');
                   //convert date/day/time into string first
                   final getDate = DateConverted.getDate(_currentDay);
                   final getDay = DateConverted.getDay(_currentDay.weekday);
@@ -139,6 +140,7 @@ class _BookingPageState extends State<BookingPage> {
 
                   final booking = await DioProvider().bookAppointment(
                       getDate, getDay, getTime, groomer['groomer_id'], token!);
+                  print('Make Appointment');
 
                   //if booking return status code 200, then redirect to success booking page
 

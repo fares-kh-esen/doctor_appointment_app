@@ -141,9 +141,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Config.spaceSmall,
-                      groomer.isNotEmpty
+                      auth.appointment.isNotEmpty
                           ? AppointmentCard(
-                              groomer: groomer,
+                              appointment: auth.appointment,
                               color: Config.primaryColor,
                             )
                           : Container(

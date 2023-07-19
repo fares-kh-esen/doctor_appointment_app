@@ -67,7 +67,7 @@ class AuthModel extends ChangeNotifier {
     for (var i = 0; i < resData['groomers'].length; i++) {
       groomers.add(resData['groomers'][i]);
     }
-
+    appointment = resData['appoitment'] ?? {};
     // appointment = appointmentInfo;
     // if (user['details'] != null && user['details']['fav'] != null) {
     //   _fav = json.decode(user['details']['fav']);

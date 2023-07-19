@@ -95,11 +95,7 @@ class _LoginFormState extends State<LoginForm> {
                       final response = await DioProvider().getUser(tokenValue);
                       if (response != null) {
                         setState(() {
-                          //json decode
-                          // Map<String, dynamic> appointment = {};
-                          // final data = json.decode(response);
-
-                          auth.loginSuccess(response );
+                          auth.loginSuccess(response);
                           MyApp.navigatorKey.currentState!.pushNamed('main');
                         });
                       }

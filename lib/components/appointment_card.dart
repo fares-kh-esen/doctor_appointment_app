@@ -6,10 +6,10 @@ import 'package:rating_dialog/rating_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppointmentCard extends StatefulWidget {
-  const AppointmentCard({Key? key, required this.groomer, required this.color})
+  const AppointmentCard({Key? key, required this.appointment ,required this.color})
       : super(key: key);
 
-  final Map<String, dynamic> groomer;
+  final Map<String, dynamic> appointment;
   final Color color;
 
   @override
@@ -36,7 +36,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                        "http://127.0.0.1:8000${widget.groomer['groomer_profile']}"), //insert doctor profile
+                        "${widget.appointment['groomer']['user']['profile_photo_url']}"), //insert doctor profile
                   ),
                   const SizedBox(
                     width: 10,
@@ -46,14 +46,14 @@ class _AppointmentCardState extends State<AppointmentCard> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Dr ${widget.groomer['doctor_name']}',
+                        'Dr ${widget.appointment['groomer']['user']['name']}',
                         style: const TextStyle(color: Colors.white),
                       ),
                       const SizedBox(
                         height: 2,
                       ),
                       Text(
-                        widget.groomer['category'],
+                        widget.appointment['groomer']['category'] ?? "",
                         style: const TextStyle(color: Colors.black),
                       )
                     ],
@@ -63,7 +63,7 @@ class _AppointmentCardState extends State<AppointmentCard> {
               Config.spaceSmall,
               //Schedule info here
               ScheduleCard(
-                appointment: widget.groomer['appointments'],
+                appointment: widget.appointment,
               ),
               Config.spaceSmall,
               //action button
@@ -126,9 +126,9 @@ class _AppointmentCardState extends State<AppointmentCard> {
                                         .storeReviews(
                                             response.comment,
                                             response.rating,
-                                            widget.groomer['appointments']
+                                            widget.appointment['groomer']['user']['appointments']
                                                 ['id'], //this is appointment id
-                                            widget.groomer[
+                                            widget.appointment['groomer']['user'][
                                                 'doc_id'], //this is doctor id
                                             token);
 

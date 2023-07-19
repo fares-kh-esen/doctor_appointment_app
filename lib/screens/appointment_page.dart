@@ -158,7 +158,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             children: [
                               CircleAvatar(
                                 backgroundImage: NetworkImage(
-                                    "http://127.0.0.1:8000${schedule['groomer_profile']}"),
+                                    "${schedule['groomer']['user']['profile_photo_url']}"),
                               ),
                               const SizedBox(
                                 width: 10,
@@ -167,7 +167,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    schedule['groomer_name'],
+                                    schedule['groomer']['user']['name'],
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
@@ -177,7 +177,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                     height: 5,
                                   ),
                                   Text(
-                                    schedule['category'],
+                                    schedule['groomer']['category'] ?? "",
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 12,

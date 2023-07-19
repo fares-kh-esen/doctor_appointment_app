@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DioProvider {
   //get token
- static String appUrl = "192.168.1.27:8000";
+  static String appUrl = "192.168.1.27:8000";
   // String appUrl = "10.0.2.2:8000";
   Future<dynamic> getToken(String email, String password) async {
     // try {
@@ -62,10 +62,12 @@ class DioProvider {
   Future<dynamic> bookAppointment(
       String date, String day, String time, int doctor, String token) async {
     try {
+      print('bookAppointment');
       var response = await Dio().post('http://$appUrl/api/book',
-          data: {'date': date, 'day': day, 'time': time, 'doctor_id': doctor},
+          data: {'date': date, 'day': day, 'time': time, 'groomer_id': doctor},
           options: Options(headers: {'Authorization': 'Bearer $token'}));
-
+      print(response.statusCode);
+      print(response.data);
       if (response.statusCode == 200 && response.data != '') {
         return response.statusCode;
       } else {
