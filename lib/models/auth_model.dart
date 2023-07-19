@@ -7,15 +7,11 @@ class AuthModel extends ChangeNotifier {
   Map<String, dynamic> user = {}; //update user details when login
   Map<String, dynamic> appointment =
       {}; //update upcoming appointment when login
-  List<Map<String, dynamic>> favGroomer = []; //get latest favorite groomer
-  List<dynamic> _fav = []; //get all fav groomer id in list
+  List<Map<String, dynamic>> favGroomers = []; //get latest favorite groomer
+  List<Map<String, dynamic>> groomers = []; //get latest favorite groomer
 
   bool get isLogin {
     return _isLogin;
-  }
-
-  List<dynamic> get getFav {
-    return _fav;
   }
 
   Map<String, dynamic> get getUser {
@@ -26,9 +22,23 @@ class AuthModel extends ChangeNotifier {
     return appointment;
   }
 
+  bool hasGroomerInFavs(groomer) {
+    for (var i = 0; i < favGroomers.length; i++) {
+      if (favGroomers[i]['groomer_id'] == groomer['groomer_id']) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 //ni nak update latest favorite list and notify all widgets
-  void setFavList(List<dynamic> list) {
-    _fav = list;
+  void setFavList(Map<String, dynamic> groomer) {
+    if (hasGroomerInFavs(groomer)) {
+      favGroomers.removeWhere(
+          (element) => element['groomer_id'] == groomer['groomer_id']);
+    } else {
+      favGroomers.add(groomer);
+    }
     notifyListeners();
   }
 
@@ -48,16 +58,20 @@ class AuthModel extends ChangeNotifier {
   // }
 
 //when login success, update the status
-  void loginSuccess(
-      Map<String, dynamic> userData, Map<String, dynamic> appointmentInfo) {
+  void loginSuccess(data) {
     _isLogin = true;
+    final resData = json.decode(data);
 
     //update all these data when login
-    user = userData;
-    appointment = appointmentInfo;
-    if (user['details'] != null && user['details']['fav'] != null) {
-      _fav = json.decode(user['details']['fav']);
+    user = resData['user'];
+    for (var i = 0; i < resData['groomers'].length; i++) {
+      groomers.add(resData['groomers'][i]);
     }
+
+    // appointment = appointmentInfo;
+    // if (user['details'] != null && user['details']['fav'] != null) {
+    //   _fav = json.decode(user['details']['fav']);
+    // }
 
     notifyListeners();
   }

@@ -96,10 +96,10 @@ class _LoginFormState extends State<LoginForm> {
                       if (response != null) {
                         setState(() {
                           //json decode
-                          Map<String, dynamic> appointment = {};
-                          final user = json.decode(response);
+                          // Map<String, dynamic> appointment = {};
+                          // final data = json.decode(response);
 
-                          auth.loginSuccess(user, appointment);
+                          auth.loginSuccess(response );
                           MyApp.navigatorKey.currentState!.pushNamed('main');
                         });
                       }

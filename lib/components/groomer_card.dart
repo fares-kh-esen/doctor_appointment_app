@@ -28,7 +28,7 @@ class GroomerCard extends StatelessWidget {
               SizedBox(
                 width: Config.widthSize * 0.33,
                 child: Image.network(
-                  "http://127.0.0.1:8000${groomer['groomer_profile']}",
+                  "${groomer['user']['profile_photo_url']}",
                   fit: BoxFit.fill,
                 ),
               ),
@@ -40,14 +40,14 @@ class GroomerCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "${groomer['groomer_name']}",
+                        "${groomer['user']['name']} ",
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        "${groomer['category']}",
+                        "${groomer['category']} ",
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal,

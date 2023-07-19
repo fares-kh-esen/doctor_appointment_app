@@ -47,13 +47,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
-    user = Provider.of<AuthModel>(context, listen: false).getUser;
-    groomer = Provider.of<AuthModel>(context, listen: false).getAppointment;
-    favList = Provider.of<AuthModel>(context, listen: false).getFav;
+    final auth = Provider.of<AuthModel>(context, listen: false);
+    
 
     return Scaffold(
       //if user is empty, then return progress indicator
-      body: user.isEmpty
+      body: auth.user.isEmpty
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -72,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            user['name'],
+                            auth.user['name'],
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -177,12 +176,12 @@ class _HomePageState extends State<HomePage> {
                       Config.spaceSmall,
                       Column(
                         children:
-                            List.generate(user['groomer'].length, (index) {
+                            List.generate(auth.groomers.length, (index) {
                           return GroomerCard(
-                            groomer: user['groomer'][index],
+                            groomer: auth.groomers[index],
                             //if lates fav list contains particular groomer id, then show fav icon
                             isFav: favList.contains(
-                                    user['groomer'][index]['groomer_id'])
+                                    auth.groomers[index]['groomer_id'])
                                 ? true
                                 : false,
                           );

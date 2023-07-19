@@ -1,5 +1,6 @@
 import 'package:woorack_app/components/button.dart';
 import 'package:woorack_app/models/auth_model.dart';
+import 'package:woorack_app/providers/dio_provider.dart';
 import 'package:woorack_app/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,6 +31,7 @@ class _GroomerDetailsState extends State<GroomerDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthModel>(context, listen: false);
     return Scaffold(
       appBar: CustomAppBar(
         appTitle: 'Groomer Details',
@@ -40,19 +42,9 @@ class _GroomerDetailsState extends State<GroomerDetails> {
             //press this button to add/remove favorite groomer
             onPressed: () async {
               //get latest favorite list from auth model
-              final list =
-                  Provider.of<AuthModel>(context, listen: false).getFav;
-
-              //if groomer id is already exist, mean remove the groomer id
-              if (list.contains(groomer['groomer_id'])) {
-                list.removeWhere((id) => id == groomer['groomer_id']);
-              } else {
-                //else, add new groomer to favorite list
-                list.add(groomer['groomer_id']);
-              }
 
               //update the list into auth model and notify all widgets
-              Provider.of<AuthModel>(context, listen: false).setFavList(list);
+              auth.setFavList(groomer);
 
               final SharedPreferences prefs =
                   await SharedPreferences.getInstance();
@@ -72,7 +64,9 @@ class _GroomerDetailsState extends State<GroomerDetails> {
               //}
             },
             icon: FaIcon(
-              isFav ? Icons.favorite_rounded : Icons.favorite_outline,
+              Provider.of<AuthModel>(context).hasGroomerInFavs(groomer)
+                  ? Icons.favorite_rounded
+                  : Icons.favorite_outline,
               color: Colors.red,
             ),
           )
@@ -122,13 +116,13 @@ class AboutGroomer extends StatelessWidget {
           CircleAvatar(
             radius: 65.0,
             backgroundImage: NetworkImage(
-              "http://127.0.0.1:8000${groomer['groomer_profile']}",
+              "${groomer['user']['profile_photo_url']}",
             ),
             backgroundColor: Colors.white,
           ),
           Config.spaceMedium,
           Text(
-            "${groomer['groomer_name']}",
+            "${groomer['user']['name']}",
             style: const TextStyle(
               color: Colors.black,
               fontSize: 24.0,
@@ -182,8 +176,8 @@ class DetailBody extends StatelessWidget {
         children: <Widget>[
           Config.spaceSmall,
           GroomerInfo(
-            patients: groomer['patients'],
-            exp: groomer['experience'],
+            patients: groomer['patients'] ?? 0,
+            exp: groomer['experience'] ?? 0,
           ),
           Config.spaceMedium,
           const Text(
@@ -192,7 +186,7 @@ class DetailBody extends StatelessWidget {
           ),
           Config.spaceSmall,
           Text(
-            'Ms. ${groomer['groomer_name']} is an experience ${groomer['category']} groomer at Sarawak, graduated since 2008, and completed his/her training at Groomer Malaysia Academy.',
+            'Ms. ${groomer['user']['name']} is an experience ${groomer['category']} groomer at Sarawak, graduated since 2008, and completed his/her training at Groomer Malaysia Academy.',
             style: const TextStyle(
               fontWeight: FontWeight.w500,
               height: 1.5,
